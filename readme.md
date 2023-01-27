@@ -4,10 +4,10 @@ FM is fun-ky! You can get some wild sounds when you play with the modulation rat
 
 This synth generator keeps things tame, but with enough modulation to add interesting color to the sound.
 
-Start by opening global-function.sc to load the synth generator.
-Then open player.sc to make some music!
+## Start by opening global-function.sc to load the synth generator.
+## Then open player.sc to make some music!
 
-
+- - - 
 
 
 ## quick FAQs about FM synthesis
