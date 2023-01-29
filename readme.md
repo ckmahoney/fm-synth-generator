@@ -63,7 +63,12 @@ A high frequency wave being performed as an instrument.
 To make the instrument responsive, we have a few helpful synthdef params.
 
 
-the  `t` parameter marks the current timestamp, 
+the  `t` parameter marks the current timestamp. Like time in real life, this is just a number that is constantly getting bigger. It is helpful to use a modulus operator on it to find out where you are in the current phrase. 
+
+
+the `cpc` parameter describes how many Cycles Per Cell there are. "Cell" here is another word for measure of music. But Cells often last 8, 16, or 2 beats, whereas measures of music often last 3 or 4 beats.
+
+
 the  `phrase` parameter to describe how many cycles go into a phrase. For example, a 4 bar phrase in 4/4 time is 16 cycles. So phrase=16.
 
 
