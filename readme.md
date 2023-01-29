@@ -56,3 +56,24 @@ A high frequency wave adding values to the carrier.
 Carrier:
 
 A high frequency wave being performed as an instrument.
+
+
+## Synth Params
+
+To make the instrument responsive, we have a few helpful synthdef params.
+
+
+the  `t` parameter marks the current timestamp, 
+the  `phrase` parameter to describe how many cycles go into a phrase. For example, a 4 bar phrase in 4/4 time is 16 cycles. So phrase=16.
+
+
+the `root` parameter lets you change the key, so the synth can always know what key you're in
+
+
+and `cps` tells you the tempo, so we can build beat-based LFOs into the instrument
+
+In the given implementation we use those time params to control the amount of FM being applied to the instrument as a function of phrase.
+so we have 0% modulation at the start of the phrase, and 100% modulation at the end of the phrase, increasing linearly with time.
+
+There's plenty of places to poke around and wiggle the sound 
+and i left a lot of comments hoping to make it easy to read and edit 
