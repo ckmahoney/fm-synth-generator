@@ -102,7 +102,7 @@ var phraseParams = (
 	cps: ~conf.at(\cps),
 	cpc: ~conf.at(\cpc),
 	root: ~conf.at(\root),
-	t: Pfunc({~t})
+	t: Ptime.new
 );
 
 var parts = (
@@ -111,14 +111,8 @@ var parts = (
 	harmony: [leadRhythm, harmFreqs, 0.1, 6],
 );
 
-~t = 0;
 
 TempoClock.tempo = ~conf.at(\cps);
-Pbindef(\time_keeper,
-	\dur, Pn(dt, inf),
-	\update_t, Pfunc({ ~t = ~t + dt }),
-	\amp, 0 // otherwise it is audible and we just want a clock
-).play;
 
 parts.keysValuesDo({|partName, d|
 	var rhythm = d[0];
