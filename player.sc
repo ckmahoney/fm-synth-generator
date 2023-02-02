@@ -25,7 +25,7 @@ var describeConf = (
 );
 
 var conf = (
-	cpc: 4,
+	cpc: 16,
 	cps: 2.1,
 	root: 1.2,
 	midikey: 1,
@@ -138,4 +138,5 @@ parts.keysValuesDo({|partName, d|
 		*phraseParams.asKeyValuePairs
 	).play;
 });
+
 )

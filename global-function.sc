@@ -40,7 +40,7 @@ This means it will replace the previous default synth.
 	var modsPerCarrier = 3;
 
 	var highestOctave = [maxHarmonic, maxFreq].maxItem.log2;
-	var maxOctave = 11; // Global maximum value for frequencies to prevent aliasing
+	var maxOctave = 11; // General maximum value for frequencies to prevent aliasing
 
 	var glide = [6,8,12,18,24, 48, 72, 96].choose.reciprocal;
 
@@ -48,7 +48,7 @@ This means it will replace the previous default synth.
 	var carScale = (1/nCarriers) * (1/3);
 
     // it helps to multiply the mod amount by a value between 10 and 1000.
-	var modHelper = 100 + 10.exprand(500);
+	var modHelper = 10 + 10.exprand(1000);
 
 
 	var numerator = if (highestOctave < 8, [2,3].choose,  [3,4,5].choose);
@@ -62,6 +62,10 @@ This means it will replace the previous default synth.
 		maxHarmonic = maxHarmonic * 2.pow(maxOctave - highestOctave);
 	});
 
+	if (maxFreq.log2 > 7, {
+		modHelper = modHelper * 10;
+	});
+
 	// Allow more sparkle on top when available
 	if ((maxHarmonic *3)< 20000, { maxHarmonic = maxHarmonic * 2 });
 
@@ -72,7 +76,7 @@ This means it will replace the previous default synth.
 		pan = 0, sus = 1, pfreq = 100, // positional and color args
 		t = 0,  cpc = 4, phrase = 16; // phrasing parameters for functions of time
 
-		// The final output signal, starts with nothing.
+		// The final outputzz signal, starts with nothing.
 		var sig = 0;
 
 		// An array to hold the carriers as we make them
@@ -108,10 +112,9 @@ This means it will replace the previous default synth.
 			// Construct the envelope
 			var ampEnv = amp * EnvGen.ar(env.value(attackTime: dur/8, releaseTime: rel), timeScale: sus * (0.2 + 0.7.rand));
 
-
 			// A dynamic control for the modulator
 			// The visible portion of modulation increases as we get to the end of the phrase
-			var timbreMix = LFSaw.ar(cps.reciprocal * phrase, 2pi* phraseProgress).range(0, 1); // share the timbre mix across all formants
+			var timbreMix = LFSaw.ar((cps * phrase).reciprocal, pi * phraseProgress).range(0, 1); // share the timbre mix across all formants
 
 			// detune the frequency using optimal values, with a higher tone in one channel and lower in the other
 			var detuned = freq * [2.pow(j)*root, 2.pow(j)*root.neg].scramble;
@@ -128,7 +131,7 @@ This means it will replace the previous default synth.
 
 				// Control the amplitude of sidebands with some dynamic params
 				modIndex = timbreMix * modMix * modEnv;
-				modIndex = 1 * modMix * modEnv;
+				// modIndex = 1 * modMix * modEnv;
 
 
 				// pick a modulation source
